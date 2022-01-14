@@ -1,0 +1,272 @@
+<script>
+    $(document).ready(function () {
+        $('#listado').DataTable({
+            "lengthChange": false,
+            "pageLength": 50,
+            "bInfo": true,
+            "bFilter": true,
+            "bPaginate": true,
+            "paging": true,
+            "scrollY": "500px",
+            "scrollCollapse": false,
+            "fixedColumns": false,
+            "ordering": false,
+            "autoWidth": false,
+
+            language: {
+                "search": "Filtrar Por:",
+                "info": "Mostrando _START_  al _END_  de _MAX_ registros",
+                "lengthMenu": "Mostrar _MENU_ Registros",
+                "sZeroRecords": "NO HAY REGISTROS",
+                "sInfoEmpty": "Upss! no hay registros XD",
+                "infoFiltered": "(filtro de _MAX_ registros)",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Atras"
+                },
+
+            }
+        });
+        $(".table-responsive-lg").css("margin-top", "2rem");
+    });
+
+    $(document).ready(function() {
+        $("#linkAll").click(function(){
+            $.ajax({  
+                url:'/MovExt/List/All',  
+                method:'get',  
+                dataType:'json',   
+                success:function(response){  
+                    if(response.msg=='success'){  
+                        alert('data all');    
+                    }else{  
+                        alert('data not get deleted');  
+                    }  
+                },  
+                error:function(response){  
+                    alert('server error')     
+                }  
+            }); 
+        });
+
+        $("#LinkNews").click(function(){
+            $.ajax({  
+                url:'/MovExt/List/News',  
+                method:'get',  
+                dataType:'json',   
+                success:function(response){  
+                    if(response.msg == 'success'){ 
+                        $('#listado').DataTable.destroy();
+                        $('#listado').DataTable( {
+                            "ajax": "MovExt/List/News",
+                            "columns": [
+                                { "data": "Consecutivo" },
+                                { "data": "Estado" },
+                                { "data": "FechaGraba" },
+                                { "data": "IndicadorTransaccion" },
+                                { "data": "Indicador" },
+                                { "data": "Numero_Ficha" },
+                                { "data": "TipoPrestamo" },
+                                { "data": "Monto" },
+                                { "data": "MontoCordobizado" },
+                                { "data": "TipoDesembolso" },
+                                { "data": "Beneficiario" }
+                            ]
+                        });
+                    }else{  
+                        alert('data not get deleted');  
+                    }  
+                },  
+                error:function(response){  
+                    alert('server error')     
+                }  
+            }); 
+        });
+    });
+
+    
+
+    
+</script>
+
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Menu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    
+                    <li>
+                        <a id = "linkAll" href="#"  data-bs-toggle="collapse" class="nav-link px-0 align-middle link-color-white">
+                            <i class="fs-2 fas fa-calendar-alt"></i> <span class="ms-1 d-none d-sm-inline">Todos</span> 
+                        </a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a id = "LinkNews" href="#" class="nav-link px-0 align-middle link-color-white">
+                            <i class="fs-4 fas fa-file"></i> <span class="ms-1 d-none d-sm-inline">Grabados</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle link-color-white">
+                            <i class="fs-4 fas fa-file-signature"></i> <span class="ms-1 d-none d-sm-inline">Revisados</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle link-color-white">
+                            <i class="fs-4 fas fa-clipboard-check"></i> <span class="ms-1 d-none d-sm-inline">Aprobados</span> 
+                        </a>
+                           
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle link-color-white">
+                            <i class="fs-4 fas fa-dollar-sign"></i> <span class="ms-1 d-none d-sm-inline">Transferidos</span> 
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle link-color-white">
+                            <i class="fs-4 fas fa-window-close"></i> <span class="ms-1 d-none d-sm-inline">Anulados</span> 
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">loser</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Contect area-->
+        <div class="col py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                            <div class="table-responsive-lg" style="width:100%; max-width:100%">
+                                <table id="listado" class="display compact hover" cellspacing="0" width="100%" style="width:100%; max-width:100%">
+                                    <thead>
+                                        
+                                        <tr>
+                                            <th class="text-center">
+                                                <label>Id</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Estado</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Fecha</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Transacción</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Indicador</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>N° de Trámite</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Préstamo</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Monto</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Monto Córdobizado</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Tipo de Desembolso</label>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <label>Beneficiario</label>
+                                            </th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each Movs}}
+                                        <tr>
+                                            <td class="text-center">
+                                                <h6><strong><a href="/MovExt/Detail/{{Consecutivo}}">{{ Consecutivo }}</a></strong></h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6>{{Estado}}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6>{{FechaGraba}}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6>{{IndicadorTransaccion}}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6>{{Indicador}}</h6>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <h6>{{Numero_Ficha}}</h6>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <h6>{{TipoPrestamo}}</h6>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <h6>{{Monto}}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6>{{MontoCordobizado}}</h6>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <h6>{{TipoDesembolso}}</h6>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <h6>{{Beneficiario}}</h6>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
