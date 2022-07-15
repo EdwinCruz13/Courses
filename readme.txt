@@ -1,5 +1,5 @@
-Test project created by a apprentice in nodejs
-for developing this api you must follow these steps:
+Test project created by a apprentice in nodejs.
+Firstly, you have to follow these steps:
 
 1 - Create a folder
 2 - Using VSCode, create a nodejs project using the command 'npm unit -y' then the 'package.json' is created.
